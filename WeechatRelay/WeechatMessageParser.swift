@@ -12,17 +12,15 @@ public class WeechatData {
     
     let stream: NSInputStream
     var count: Int
-    
-    
+
+
     public init(data: NSData) {
         self.stream = NSInputStream(data: data)
         self.count = data.length
         
         self.stream.open()
     }
-    
-    
-    
+
     private func readObject(withType type: WeechatDataType) -> Any? {
         var value: Any? = "NULL"
         

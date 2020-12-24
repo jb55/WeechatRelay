@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import CocoaAsyncSocket
-import BBSZLib
+//import CocoaAsyncSocket
+//import BBSZLib
 
 public class Weechat: GCDAsyncSocketDelegate {
     
@@ -43,15 +43,14 @@ public class Weechat: GCDAsyncSocketDelegate {
         }
     }
     
-    func writeString(string: String, id: WeechatTagConstant) {
+    func writeString(_ string: String, id: WeechatTagConstant) {
         // print(string)
         let commandString = "(\(id.rawValue))\(string)\n"
         socket.writeData(commandString.dataUsingEncoding(NSUTF8StringEncoding), withTimeout: NO_TIMEOUT, tag: headerTag)
     }
     
-    func queueReadMessage(length: Int, tag: Int) {
-    
-        queuedReads++
+    func queueReadMessage(_ length: Int, tag: Int) {
+        queuedReads += 1
         
         print("queued: len(\(length))")
         let len = UInt(length)
@@ -64,11 +63,11 @@ public class Weechat: GCDAsyncSocketDelegate {
     }
     
     @objc public func socketDidDisconnect(sock: GCDAsyncSocket!, withError err: NSError!) {
-        print(err)
+        print(err as Any)
     }
     
     @objc public func socket(sock: GCDAsyncSocket!, didConnectToHost host: String!, port: UInt16) {
-        print("socket connected! \(host):\(port)")
+        print("socket connected! \(host ?? ""):\(port)")
     }
     
     @objc public func socket(sock: GCDAsyncSocket!, didReadPartialDataOfLength partialLength: UInt, tag: Int) {
@@ -76,8 +75,7 @@ public class Weechat: GCDAsyncSocketDelegate {
     }
     
     @objc public func socket(sock: GCDAsyncSocket!, didReadData data: NSData!, withTag tag: Int) {
-        
-        queuedReads--
+        queuedReads -= 1
         
         if tag == headerTag {
             let weechatData = WeechatData(data: data)
@@ -86,7 +84,7 @@ public class Weechat: GCDAsyncSocketDelegate {
             
             queueReadMessage(length - HEADER_LENGTH, tag: 1)
         } else {
-            readBody(data, tag: tag)
+            readBody(data as Data, tag: tag)
         }
         
         print("queuedReads", queuedReads)
@@ -96,7 +94,7 @@ public class Weechat: GCDAsyncSocketDelegate {
         }
     }
     
-    private func readHeader(data: WeechatData) -> Int {
+    private func readHeader(_ data: WeechatData) -> Int {
         let lengthOfMessage = data.readInt()
         
         return lengthOfMessage
@@ -114,10 +112,10 @@ public class Weechat: GCDAsyncSocketDelegate {
         return data.readChar()
     }
     
-    private func readBody(data: NSData, tag: Int) {
+    private func readBody(_ data: Data, tag: Int) {
         
-        let isCompressedData = WeechatData(data: data.subdataWithRange(NSMakeRange(0, 1)))
-        var uncompressedData = data.subdataWithRange(NSMakeRange(1, data.length - 1))
+        let isCompressedData = WeechatData(data: (data.subdata(in: 0..<1)) as NSData)
+        var uncompressedData = data.subdata(in: 1..<(data.count-1)) as NSData
         
         if dataIsCompressed(isCompressedData) {
             uncompressedData = decompressData(uncompressedData)
@@ -130,7 +128,7 @@ public class Weechat: GCDAsyncSocketDelegate {
         
         print(id)
         
-        if let handlers = messageHandlers[id] where handlers.count > 0 {
+        if let handlers = messageHandlers[id], handlers.count > 0 {
             handlers.forEach({ (handler) in
                 handler.handleMessage(weechatData, id: id)
             })
@@ -140,7 +138,7 @@ public class Weechat: GCDAsyncSocketDelegate {
     }
     
     private func printData(data: NSData) {
-        debugPrint(String(data: data, encoding: NSUTF8StringEncoding))
+        debugPrint(String(data: data as Data, encoding: String.Encoding.utf8) ?? "")
     }
     
     public func getHotlist() {
@@ -155,7 +153,7 @@ public class Weechat: GCDAsyncSocketDelegate {
         writeString("input \(buffer) \(data)", id: .INPUT)
     }
     
-    func send_hdata(path: String, tag: WeechatTagConstant) {
+    func send_hdata(_ path: String, tag: WeechatTagConstant) {
         writeString("hdata \(path)", id: tag)
     }
     

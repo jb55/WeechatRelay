@@ -7,24 +7,14 @@
 //
 
 import Cocoa
-import SSHPortForward
 
 var connected = false
 var resolvedPort = 0
 
-let runner = Runner()
-
-SSHTunnel.setDelegate(runner)
-SSHTunnel.runThread()
-
-while !connected {
-    sleep(1)
-}
-
 var wc: Weechat!
 
 do {
-    wc = try Weechat(host: "127.0.0.1", port: resolvedPort)
+    wc = try Weechat(host: "10.0.0.1", port: resolvedPort)
     
     wc.getLines()
     wc.getBuffers()
@@ -34,5 +24,3 @@ do {
     fatalError("ERRROR")
 }
 
-
-NSRunLoop.currentRunLoop().run()

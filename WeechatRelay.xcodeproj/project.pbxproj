@@ -6,10 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		47C858CE3600886B788FD516 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA8BED6D9F4B579FFBAE5F9D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		0420E7F01BB34A3C00559B59 /* BBSZLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BBSZLib.framework; path = "../../../Library/Developer/Xcode/DerivedData/WeechatRelay-buikwlkxaklklycgxzlknovgiesx/Build/Products/Debug/BBSZLib.framework"; sourceTree = "<group>"; };
 		0420E7F21BB3552200559B59 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
@@ -25,9 +21,6 @@
 		04E58EA51B9CA2B8007D61C3 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		04EE4A4D1BB8A16900F1445D /* SSHPortForward.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SSHPortForward.framework; path = ../SSHPortForward/build/Debug/SSHPortForward.framework; sourceTree = "<group>"; };
 		04F587591B8E63B4005FBEBC /* WeechatMessageParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeechatMessageParser.swift; sourceTree = "<group>"; };
-		415AD8C0895F7FB35A12AD3E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		72593398C2BC3CFB8E9B7080 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		CA8BED6D9F4B579FFBAE5F9D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,7 +28,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47C858CE3600886B788FD516 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,7 +39,6 @@
 			children = (
 				04B2128E1BCD879300F2B039 /* WeechatRelay */,
 				04A54EA31B8A0E9B008555D8 /* Products */,
-				40D7C0C80506B7195EAE36B5 /* Pods */,
 				5E82636F547D81B7683B5FC3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -76,15 +67,6 @@
 			path = WeechatRelay;
 			sourceTree = "<group>";
 		};
-		40D7C0C80506B7195EAE36B5 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				72593398C2BC3CFB8E9B7080 /* Pods.debug.xcconfig */,
-				415AD8C0895F7FB35A12AD3E /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		5E82636F547D81B7683B5FC3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,7 +74,6 @@
 				0420E7F01BB34A3C00559B59 /* BBSZLib.framework */,
 				04E58EA51B9CA2B8007D61C3 /* libz.1.dylib */,
 				04E58EA31B9CA27A007D61C3 /* libz.tbd */,
-				CA8BED6D9F4B579FFBAE5F9D /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -114,12 +95,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 04B212921BCD879300F2B039 /* Build configuration list for PBXNativeTarget "WeechatRelay" */;
 			buildPhases = (
-				C85554D8414F293745B1641A /* Check Pods Manifest.lock */,
 				04B212881BCD879300F2B039 /* Sources */,
 				04B212891BCD879300F2B039 /* Frameworks */,
 				04B2128A1BCD879300F2B039 /* Headers */,
 				04B2128B1BCD879300F2B039 /* Resources */,
-				FE3E4E1543FB69D5CBC2E4C8 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -171,39 +150,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		C85554D8414F293745B1641A /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FE3E4E1543FB69D5CBC2E4C8 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		04B212881BCD879300F2B039 /* Sources */ = {
@@ -300,7 +246,6 @@
 		};
 		04B212931BCD879300F2B039 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72593398C2BC3CFB8E9B7080 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
@@ -322,7 +267,6 @@
 		};
 		04B212941BCD879300F2B039 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 415AD8C0895F7FB35A12AD3E /* Pods.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
