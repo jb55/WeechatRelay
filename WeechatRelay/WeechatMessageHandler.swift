@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol WeechatMessageHandler {
-    func handleMessage(data: WeechatData, id: String)
+    func handleMessage(_ data: WeechatData, id: String)
 }
 
 public protocol WeechatMessageHandlerDelegate {
@@ -25,7 +25,7 @@ public class WeechatLineManager: WeechatMessageHandler {
         self.bufferManager = bufferManager
     }
     
-    public func handleMessage(data: WeechatData, id: String) {
+    public func handleMessage(_ data: WeechatData, id: String) {
         _ = data.readType()
         let hdata = data.readHdata()
         for elem in hdata.elements {

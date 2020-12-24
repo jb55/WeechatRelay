@@ -9,6 +9,7 @@
 import Foundation
 //import CocoaAsyncSocket
 //import BBSZLib
+import Compression
 
 public class Weechat: GCDAsyncSocketDelegate {
     
@@ -100,15 +101,7 @@ public class Weechat: GCDAsyncSocketDelegate {
         return lengthOfMessage
     }
     
-    private func decompressData(data: NSData) -> NSData {
-        do {
-            return try data.bbs_dataByInflating()
-        } catch {
-            return data
-        }
-    }
-    
-    private func dataIsCompressed(data: WeechatData) -> Bool {
+    private func dataIsCompressed(_ data: WeechatData) -> Bool {
         return data.readChar()
     }
     
@@ -118,11 +111,10 @@ public class Weechat: GCDAsyncSocketDelegate {
         var uncompressedData = data.subdata(in: 1..<(data.count-1)) as NSData
         
         if dataIsCompressed(isCompressedData) {
-            uncompressedData = decompressData(uncompressedData)
+            uncompressedData = try! uncompressedData.decompressed(using: NSData.CompressionAlgorithm.zlib)
         }
         
         let weechatData = WeechatData(data: uncompressedData)
-        
         
         guard let id = weechatData.readString() else { fatalError("id not defined") }
         

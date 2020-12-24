@@ -10,5 +10,8 @@ SRCS= WeechatRelay/NSInputStream_Extensions.swift \
 
 all: test
 
+tags: $(SRCS)
+	ctags $^
+
 test: $(SRCS)
-	swiftc $(SRCS) -o $@
+	swiftc $^ -o $@
