@@ -1,8 +1,7 @@
 
-platform :ios, '9.0'
-
 use_frameworks!
 
-workspace 'WeechatRelay.xcworkspace'
+target "WeechatRelay" do
+	pod 'CocoaAsyncSocket'
 
-pod 'CocoaAsyncSocket'
+end

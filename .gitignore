@@ -4,6 +4,7 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+/.build
 /tags
 WeechatRelay.xcodeproj/project.xcworkspace/xcshareddata/
 WeechatRelay.xcworkspace/xcshareddata/

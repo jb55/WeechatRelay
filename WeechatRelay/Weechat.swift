@@ -7,7 +7,7 @@
 //
 
 import Foundation
-//import CocoaAsyncSocket
+import CocoaAsyncSocket
 //import BBSZLib
 import Compression
 
